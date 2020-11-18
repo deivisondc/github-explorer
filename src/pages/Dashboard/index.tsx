@@ -25,8 +25,18 @@ const Dashboard: React.FC = () => {
   ): Promise<void> {
     event.preventDefault();
 
-    if (!inputError) {
+    if (!newRepo) {
       setInputError('Digite o autor/nome do repositório');
+      return;
+    }
+
+    const repositoryIndex = repositories.findIndex(
+      repository =>
+        repository.full_name.toLowerCase() === newRepo.toLowerCase(),
+    );
+
+    if (repositoryIndex >= 0) {
+      setInputError('Repositório já foi adicionado.');
       return;
     }
 
